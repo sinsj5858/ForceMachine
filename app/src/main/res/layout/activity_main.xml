@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/table1"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="16dp"
+        android:text="1번 테이블"
+        app:layout_constraintEnd_toStartOf="@+id/table2"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/table2"
+        android:text="2번 테이블"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <Button
+        android:id="@+id/table3"
+        android:text="3번 테이블"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toEndOf="@+id/table2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <Button
+        android:id="@+id/table4"
+        android:text="4번 테이블"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/table5"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table1"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <Button
+        android:id="@+id/table5"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        android:text="5번 테이블"
+        app:layout_constraintEnd_toStartOf="@+id/table6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/table2"
+        app:layout_constraintTop_toBottomOf="@+id/table2" />
+
+    <Button
+        android:id="@+id/table6"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        android:text="6번 테이블"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/table3"
+        app:layout_constraintTop_toBottomOf="@+id/table3" />
+
+    <Button
+        android:id="@+id/table7"
+        android:text="7번 테이블"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/table8"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table4"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <Button
+        android:id="@+id/table8"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        android:text="8번 테이블"
+        app:layout_constraintEnd_toStartOf="@+id/table9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/table5"
+        app:layout_constraintTop_toBottomOf="@+id/table5"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <Button
+        android:id="@+id/table9"
+        android:layout_width="150dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="8dp"
+        android:text="9번 테이블"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/table6"
+        app:layout_constraintTop_toBottomOf="@+id/table6" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
