@@ -7,6 +7,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,18 +18,29 @@ import android.widget.Button;
 import com.example.forcemachine.menu.MenuDb;
 import com.example.forcemachine.menu.MenuDbHelper;
 import com.example.forcemachine.menu.MenuTableInfo;
+import com.example.forcemachine.retrofit.NetworkHelper;
+import com.example.forcemachine.table.RestaurantStatusRequest;
 import com.example.forcemachine.table.TableDb;
 import com.example.forcemachine.table.TableDbHelper;
 import com.example.forcemachine.table.TableInfo;
+import com.example.forcemachine.table.TableStatus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "MyPrefs";
     private static final String FIRST_RUN_KEY = "FirstRun";
+    private static final String restaurantName = "두꺼비식당";
+    private static final String TAG = "MainActivity";
 
     private Button table1;
     private Button table2;
@@ -47,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         tableDbHelper = new TableDbHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         table1 = findViewById(R.id.table1);
         table2 = findViewById(R.id.table2);
@@ -94,127 +108,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isFirstRun = prefs.getBoolean(FIRST_RUN_KEY, true);
 
-        if (isFirstRun) {
-            // 앱이 처음 실행될 때만 실행할 함수 호출
-//            resetTableDB(tableIds);
-
-            // FirstRun 값을 false로 설정하여 다음에 앱이 실행될 때는 함수를 실행하지 않음
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(FIRST_RUN_KEY, false);
-            editor.apply();
-        }
-
         // 최초 실행 여부를 저장
 
 
-        // 자리에 있는 경우 색깔바꾸기
-        String tableExist = getIntent().getStringExtra("tableExist");
-        String tableId = getIntent().getStringExtra("tableId");
-        System.out.println(tableExist);
-        System.out.println(tableId);
 
-
-        if (tableId != null) {
-            if (tableExist.equals("true")) {
-                int buttonId = getResources().getIdentifier(tableId, "id", getPackageName());
-                Button button = findViewById(buttonId);
-                button.setBackgroundColor(Color.RED);
-            } else if (tableExist.equals("false")) {
-                int buttonId = getResources().getIdentifier(tableId, "id", getPackageName());
-                Button button = findViewById(buttonId);
-                button.setBackgroundColor(Color.parseColor("#6200EE"));
-            }
-        }
-
-//        table1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table1.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table2.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table3.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table4.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table5.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table6.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table7.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table8.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table8.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
-//
-//        table9.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String tableId = Integer.toString(table9.getId());
-//                Intent table1Intent = new Intent(MainActivity.this, TableActivity.class);
-//                table1Intent.putExtra("button_data", tableId);
-//                startActivity(table1Intent);
-//            }
-//        });
         for(Button table : tables) {
             table.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -265,16 +162,16 @@ public class MainActivity extends AppCompatActivity {
 
         // 이전 화면으로 돌아왔을 때 실행되어야 하는 함수 호출
         changeButtonRGBTableDB(tableIds);
+        postTableData(tableIds);
 
 
-
-        for (String tableId : tableIds) {
-            ArrayList<TableDb> tableExistByTableId = tableDbHelper.getTableExistByTableId(tableId);
-            for (TableDb tableDb : tableExistByTableId) {
-                System.out.println(tableDb.getTableId());
-                System.out.println(tableDb.getTableExist());
-            }
-        }
+//        for (String tableId : tableIds) {
+//            ArrayList<TableDb> tableExistByTableId = tableDbHelper.getTableExistByTableId(tableId);
+//            for (TableDb tableDb : tableExistByTableId) {
+//                System.out.println(tableDb.getTableId());
+//                System.out.println(tableDb.getTableExist());
+//            }
+//        }
     }
 
     private void resetTableDB(List<String> tableIds) {
@@ -304,16 +201,58 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-//    private void setTableDB(List<String> tableIds){
-//        for(String tableId : tableIds){
-//            ContentValues values = new ContentValues();
-//            values.put(TableInfo.COLUMN_NAME_TABLEID,tableId);
-//            values.put(TableInfo.COLUMN_NAME_TABLEEXIST,false);
-//
-//            SQLiteDatabase db = tableDbHelper.getWritableDatabase();
-//            long newRowId = db.insert(TableInfo.TABLE_NAME, null, values);
-//        }
-//    }
+    private void setTableDB(List<String> tableIds){
+        for(String tableId : tableIds){
+            ContentValues values = new ContentValues();
+            values.put(TableInfo.COLUMN_NAME_TABLEID,tableId);
+            values.put(TableInfo.COLUMN_NAME_TABLEEXIST,false);
+
+            SQLiteDatabase db = tableDbHelper.getWritableDatabase();
+            long newRowId = db.insert(TableInfo.TABLE_NAME, null, values);
+        }
+    }
+
+    // 빈자리 통신코드
+    private void postTableData(List<String> tableIds){
+        List<TableStatus> tableStatuses = new ArrayList<>();
+        for (String tableId : tableIds) {
+            ArrayList<TableDb> tableExistByTableId = tableDbHelper.getTableExistByTableId(tableId);
+            for (TableDb tableDb : tableExistByTableId) {
+                TableStatus tableStatus = new TableStatus(tableDb.getTableId(),tableDb.getTableExist());
+                tableStatuses.add(tableStatus);
+            }
+        }
+        RestaurantStatusRequest restaurantStatusRequest = new RestaurantStatusRequest(restaurantName,tableStatuses);
+        for(TableStatus tableStatus :restaurantStatusRequest.getTableStatusList()){
+            System.out.println(tableStatus.getTableId());
+            System.out.println(tableStatus.isTableExist());
+        }
+
+        Call<String> call = NetworkHelper.getInstance().getApiService().postRestaurantStatus(restaurantStatusRequest);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.e(TAG, "빈자리 데이터 보내기 성공");
+                } else {
+                    // 데이터를 받아오는 도중 오류가 발생한 경우 처리할 로직을 작성합니다.
+                    Log.e(TAG, "Response failed"); //username 중복
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Log.e(TAG, "Network failure");
+                    t.printStackTrace();
+                } else {
+                    Log.e(TAG, "Unexpected failure");
+                }
+            }
+        });
+
+
+    }
 }
 
 

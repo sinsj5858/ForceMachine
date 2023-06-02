@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\82102\.android\avd\Nexus_9_API_UpsideDownCake.avd" />
+            <value value="C:\Users\goddn\.android\avd\Nexus_9_API_UpsideDownCake.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-05-27T16:20:44.261946Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-06-02T05:25:31.515282600Z" />
   </component>
 </project>
